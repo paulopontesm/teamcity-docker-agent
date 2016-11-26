@@ -1,25 +1,70 @@
-FROM teamcity-minimal-agent:latest
+FROM jetbrains/teamcity-minimal-agent:latest
 
 MAINTAINER Kateryna Shlyakhovetska <shkate@jetbrains.com>
 
 LABEL dockerImage.teamcity.version="latest" \
       dockerImage.teamcity.buildNumber="latest"
 
-RUN apt-get update && \
-    apt-get install -y software-properties-common && add-apt-repository ppa:openjdk-r/ppa && apt-get update && \
-    apt-get install -y git mercurial openjdk-8-jdk apt-transport-https ca-certificates && \
-    \
-    apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
-    echo "deb https://apt.dockerproject.org/repo ubuntu-wily main" > /etc/apt/sources.list.d/docker.list && \
-    \
-    apt-cache policy docker-engine && \
-    apt-get update && \
-    apt-get install -y docker-engine=1.10.3-0~wily && \
-    \
-    apt-get clean all && \
-    \
-    usermod -aG docker buildagent
+RUN locale-gen en_US.UTF-8
 
-COPY run-docker.sh /services/run-docker.sh
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
 
+ENV RUBY_VERSION 2.3.1
+ENV NODE_VERSION 7.0.0
 
+ENV RBENV_HOME "/root/.rbenv"
+ENV NODENV_HOME "/root/.nodenv"
+ENV COMPOSER_HOME "/root/.composer"
+
+ENV PATH "$RBENV_HOME/bin:$RBENV_HOME/shims:$NODENV_HOME/bin:$NODENV_HOME/shims:$COMPOSER_HOME/bin:$PATH"
+
+RUN \
+    groupadd -g 2004 docker && \
+    adduser --disabled-password --gecos "" --uid 2004 --gid 2004 docker && \
+    gpasswd -a docker docker && \
+    gpasswd -a root docker
+
+RUN apt-get update -y && \
+    apt-get install -y software-properties-common zip git mercurial apt-transport-https ca-certificates && \
+    add-apt-repository ppa:openjdk-r/ppa && \
+    echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list && \
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 && \
+    add-apt-repository ppa:ondrej/php && \
+    apt-get update -y && \
+    apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev && \
+    \
+    apt-get install -y python3 python3-dev python3-pip libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev && \
+    python3 -m pip install --upgrade pip && \
+    python3 -m pip install --upgrade aws && \
+    python3 -m pip install --upgrade ansible && \
+    python3 -m pip install --upgrade boto && \
+    python3 -m pip install --upgrade metrics===0.2.6 && \
+    python3 -m pip install --upgrade radon===1.4.2 && \
+    \
+    apt-get install -y openjdk-8-jdk && \
+    apt-get install -y sbt && \
+    \
+    apt-get install -y php5-dev php5-cli && \
+    curl -sS https://getcomposer.org/installer | php && \
+    mv composer.phar /bin/composer && \
+    composer global require "pdepend/pdepend=2.3.2" && \
+    \
+    git clone https://github.com/rbenv/rbenv.git $RBENV_HOME && \
+    git clone https://github.com/rbenv/ruby-build.git $RBENV_HOME/plugins/ruby-build && \
+    eval "$(rbenv init -)" && \
+    rbenv install $RUBY_VERSION && \
+    rbenv global $RUBY_VERSION && \
+    echo 'eval "$(rbenv init -)"' >> /root/.bashrc && \
+    gem install sass && \
+    \
+    git clone https://github.com/nodenv/nodenv.git $NODENV_HOME && \
+    git clone https://github.com/nodenv/node-build.git $NODENV_HOME/plugins/node-build && \
+    eval "$(nodenv init -)" && \
+    nodenv install -s $NODE_VERSION && \
+    nodenv global $NODE_VERSION && \
+    echo 'eval "$(nodenv init -)"' >> /root/.bashrc && \
+    npm install -g cloc && \
+    \
+    apt-get clean all
