@@ -40,6 +40,7 @@ RUN apt-get update -y && \
     python3 -m pip install --upgrade aws && \
     python3 -m pip install --upgrade ansible && \
     python3 -m pip install --upgrade boto && \
+    python3 -m pip install --upgrade docker-compose && \
     python3 -m pip install --upgrade metrics===0.2.6 && \
     python3 -m pip install --upgrade radon===1.4.2 && \
     \
