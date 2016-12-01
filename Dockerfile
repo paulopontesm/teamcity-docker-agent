@@ -21,19 +21,29 @@ ENV COMPOSER_HOME "/root/.composer"
 ENV PATH "$RBENV_HOME/bin:$RBENV_HOME/shims:$NODENV_HOME/bin:$NODENV_HOME/shims:$COMPOSER_HOME/bin:$PATH"
 
 RUN \
+    echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
+    git config --global core.quotepath false && \
+    git config --global core.packedGitLimit 512m && \
+    git config --global core.packedGitWindowSize 512m && \
+    git config --global pack.deltaCacheSize 2047m && \
+    git config --global pack.packSizeLimit 2047m && \
+    git config --global pack.windowMemory 2047m
+
+RUN \
     groupadd -g 2004 docker && \
     adduser --disabled-password --gecos "" --uid 2004 --gid 2004 docker && \
     gpasswd -a docker docker && \
     gpasswd -a root docker
 
 RUN apt-get update -y && \
-    apt-get install -y software-properties-common zip git mercurial apt-transport-https ca-certificates && \
+    apt-get install -y software-properties-common zip mercurial apt-transport-https ca-certificates && \
     add-apt-repository ppa:openjdk-r/ppa && \
     echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 && \
     add-apt-repository ppa:ondrej/php && \
+    add-apt-repository ppa:git-core/ppa && \
     apt-get update -y && \
-    apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev && \
+    apt-get install -y git autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev && \
     \
     apt-get install -y python3 python3-dev python3-pip libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev && \
     python3 -m pip install --upgrade pip && \
