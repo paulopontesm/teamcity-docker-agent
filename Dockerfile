@@ -1,6 +1,6 @@
 FROM jetbrains/teamcity-minimal-agent:latest
 
-MAINTAINER Kateryna Shlyakhovetska <shkate@jetbrains.com>
+MAINTAINER Rodrigo Fernandes <rodrigo@codacy.com>
 
 LABEL dockerImage.teamcity.version="latest" \
       dockerImage.teamcity.buildNumber="latest"
@@ -33,9 +33,14 @@ RUN apt-get update -y && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 && \
     add-apt-repository ppa:ondrej/php && \
     add-apt-repository ppa:git-core/ppa && \
+    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
+    add-apt-repository -y ppa:webupd8team/java && \
     apt-get update -y && \
     apt-get install -y git autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev && \
     \
+    apt-get -y install oracle-java8-installer && \
+    apt-get -y install oracle-java8-unlimited-jce-policy && \
+    apt-get -y install oracle-java8-set-default && \
     echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
     git config --global core.quotepath false && \
     git config --global core.packedGitLimit 512m && \
@@ -44,6 +49,7 @@ RUN apt-get update -y && \
     git config --global pack.packSizeLimit 2047m && \
     git config --global pack.windowMemory 2047m && \
     apt-get -y install apparmor libdevmapper1.02.1 && \
+    ln -sf /lib/x86_64-linux-gnu/libdevmapper.so.1.02.1 /lib/x86_64-linux-gnu/libdevmapper.so.1.02 && \
     apt-get install -y python3 python3-dev python3-pip libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install --upgrade aws && \
@@ -53,7 +59,6 @@ RUN apt-get update -y && \
     python3 -m pip install --upgrade metrics===0.2.6 && \
     python3 -m pip install --upgrade radon===1.4.2 && \
     \
-    apt-get install -y openjdk-8-jdk && \
     apt-get install -y sbt && \
     \
     apt-get install -y php5-dev php5-cli && \
