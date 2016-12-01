@@ -21,15 +21,6 @@ ENV COMPOSER_HOME "/root/.composer"
 ENV PATH "$RBENV_HOME/bin:$RBENV_HOME/shims:$NODENV_HOME/bin:$NODENV_HOME/shims:$COMPOSER_HOME/bin:$PATH"
 
 RUN \
-    echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
-    git config --global core.quotepath false && \
-    git config --global core.packedGitLimit 512m && \
-    git config --global core.packedGitWindowSize 512m && \
-    git config --global pack.deltaCacheSize 2047m && \
-    git config --global pack.packSizeLimit 2047m && \
-    git config --global pack.windowMemory 2047m
-
-RUN \
     groupadd -g 2004 docker && \
     adduser --disabled-password --gecos "" --uid 2004 --gid 2004 docker && \
     gpasswd -a docker docker && \
@@ -45,6 +36,14 @@ RUN apt-get update -y && \
     apt-get update -y && \
     apt-get install -y git autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev && \
     \
+    echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
+    git config --global core.quotepath false && \
+    git config --global core.packedGitLimit 512m && \
+    git config --global core.packedGitWindowSize 512m && \
+    git config --global pack.deltaCacheSize 2047m && \
+    git config --global pack.packSizeLimit 2047m && \
+    git config --global pack.windowMemory 2047m && \
+    apt-get -y install apparmor libdevmapper1.02.1 && \
     apt-get install -y python3 python3-dev python3-pip libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev && \
     python3 -m pip install --upgrade pip && \
     python3 -m pip install --upgrade aws && \
