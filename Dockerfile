@@ -58,6 +58,7 @@ RUN apt-get update -y && \
     rbenv install $RUBY_VERSION && \
     rbenv global $RUBY_VERSION && \
     echo 'eval "$(rbenv init -)"' >> /root/.bashrc && \
+    gem install bundler && \
     gem install sass && \
     \
     git clone https://github.com/nodenv/nodenv.git $NODENV_HOME && \
