@@ -51,7 +51,7 @@ RUN apt-get update -y && \
     ln -sf /lib/x86_64-linux-gnu/libdevmapper.so.1.02.1 /lib/x86_64-linux-gnu/libdevmapper.so.1.02 && \
     apt-get install -y python python-dev python-pip libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev && \
     python -m pip install --upgrade pip && \
-    python -m pip install --upgrade aws && \
+    python -m pip install --upgrade awscli && \
     python -m pip install --upgrade ansible && \
     python -m pip install --upgrade boto && \
     python -m pip install --upgrade docker-compose && \
