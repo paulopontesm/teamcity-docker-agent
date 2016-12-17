@@ -1,5 +1,8 @@
 ## TeamCity Agent Image Dockerfile
 
+[![CircleCI](https://circleci.com/gh/codacy/teamcity-docker-agent.svg?style=svg)](https://circleci.com/gh/codacy/teamcity-docker-agent)
+[![MicroBadger](https://images.microbadger.com/badges/image/codacy/teamcity-agent.svg)](https://microbadger.com/images/codacy/teamcity-agent "Get your own image badge on microbadger.com")
+
 This project contains the Dockerfile and all necessary scripts to build the Docker image and run a TeamCity Build Agent inside the container.
 
 You can pull the ready-to-use image from the Docker Hub repository
