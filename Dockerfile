@@ -54,6 +54,7 @@ RUN apt-get update -y && \
     python -m pip install --upgrade awscli && \
     python -m pip install --upgrade ansible && \
     python -m pip install --upgrade boto && \
+    python -m pip install --upgrade tox && \
     python -m pip install --upgrade docker-compose && \
     python -m pip install --upgrade metrics===0.2.6 && \
     python -m pip install --upgrade radon===1.4.2 && \
