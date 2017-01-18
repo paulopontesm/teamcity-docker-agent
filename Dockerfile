@@ -12,7 +12,7 @@ ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
 ENV RUBY_VERSION 2.3.1
-ENV NODE_VERSION 7.0.0
+ENV NODE_VERSION 7.4.0
 
 ENV RBENV_HOME "/root/.rbenv"
 ENV NODENV_HOME "/root/.nodenv"
@@ -64,7 +64,7 @@ RUN apt-get update -y && \
     apt-get install -y php5-dev php5-cli && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /bin/composer && \
-    composer global require "pdepend/pdepend=2.3.2" && \
+    composer global require "pdepend/pdepend=2.4.1" && \
     \
     git clone https://github.com/rbenv/rbenv.git $RBENV_HOME && \
     git clone https://github.com/rbenv/ruby-build.git $RBENV_HOME/plugins/ruby-build && \
@@ -81,6 +81,6 @@ RUN apt-get update -y && \
     nodenv install -s $NODE_VERSION && \
     nodenv global $NODE_VERSION && \
     echo 'eval "$(nodenv init -)"' >> /root/.bashrc && \
-    npm install -g cloc && \
+    npm install -g cloc@2.2.0 && \
     \
     apt-get clean all
