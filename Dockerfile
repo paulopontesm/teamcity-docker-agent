@@ -83,4 +83,6 @@ RUN apt-get update -y && \
     echo 'eval "$(nodenv init -)"' >> /root/.bashrc && \
     npm install -g cloc@2.2.0 && \
     \
+    apt-get install golang \
+    \
     apt-get clean all
