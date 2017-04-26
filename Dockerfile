@@ -61,7 +61,7 @@ RUN apt-get update -y && \
     \
     apt-get install -y sbt && \
     \
-    apt-get install -y php5-dev php5-cli && \
+    apt-get install -y php5.6-dev php5.6-cli && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /bin/composer && \
     composer global require "pdepend/pdepend=2.4.1" && \
