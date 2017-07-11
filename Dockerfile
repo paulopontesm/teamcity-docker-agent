@@ -5,14 +5,12 @@ MAINTAINER Rodrigo Fernandes <rodrigo@codacy.com>
 LABEL dockerImage.teamcity.version="latest" \
       dockerImage.teamcity.buildNumber="latest"
 
-RUN locale-gen en_US.UTF-8
-
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-ENV RUBY_VERSION 2.3.1
-ENV NODE_VERSION 7.4.0
+ENV RUBY_VERSION 2.4.1
+ENV NODE_VERSION 8.1.0
 
 ENV RBENV_HOME "/root/.rbenv"
 ENV NODENV_HOME "/root/.nodenv"
@@ -27,6 +25,8 @@ RUN \
     gpasswd -a root docker
 
 RUN apt-get update -y && \
+    apt-get install -y locales && \
+    locale-gen en_US.UTF-8 && \
     apt-get install -y software-properties-common zip mercurial apt-transport-https ca-certificates && \
     echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 && \
@@ -49,7 +49,7 @@ RUN apt-get update -y && \
     git config --global pack.windowMemory 2047m && \
     apt-get -y install apparmor libdevmapper1.02.1 && \
     ln -sf /lib/x86_64-linux-gnu/libdevmapper.so.1.02.1 /lib/x86_64-linux-gnu/libdevmapper.so.1.02 && \
-    apt-get install -y python python-dev python-pip libffi-dev libssl-dev libxml2-dev libxslt1-dev libjpeg8-dev zlib1g-dev && \
+    apt-get install -y python python-dev python-pip libxml2-dev libxslt1-dev libjpeg8-dev && \
     python -m pip install --upgrade pip && \
     python -m pip install --upgrade awscli && \
     python -m pip install --upgrade ansible && \
@@ -85,4 +85,7 @@ RUN apt-get update -y && \
     \
     apt-get install golang -y && \
     \
+    apt-get remove -y autoconf bison build-essential && \
+    apt-get autoremove -y && \
+    apt-get autoclean all && \
     apt-get clean all
