@@ -15,6 +15,7 @@ ENV NODE_VERSION 8.1.0
 ENV RBENV_HOME "/root/.rbenv"
 ENV NODENV_HOME "/root/.nodenv"
 ENV COMPOSER_HOME "/root/.composer"
+ENV GOPATH "/go"
 
 ENV PATH "$RBENV_HOME/bin:$RBENV_HOME/shims:$NODENV_HOME/bin:$NODENV_HOME/shims:$COMPOSER_HOME/bin:$PATH"
 
@@ -58,6 +59,7 @@ RUN apt-get update -y && \
     python -m pip install --upgrade docker-compose && \
     python -m pip install --upgrade metrics===0.2.6 && \
     python -m pip install --upgrade radon===1.4.2 && \
+    python -m pip install --upgrade lizard===1.12.9 && \
     \
     apt-get install -y sbt && \
     \
@@ -84,6 +86,7 @@ RUN apt-get update -y && \
     npm install -g cloc@2.2.0 && \
     \
     apt-get install golang -y && \
+    go get github.com/fzipp/gocyclo && \
     \
     apt-get remove -y autoconf bison build-essential && \
     apt-get autoremove -y && \
