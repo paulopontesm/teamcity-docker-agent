@@ -67,6 +67,7 @@ RUN apt-get update -y && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /bin/composer && \
     composer global require "pdepend/pdepend=2.4.1" && \
+    ln -s $COMPOSER_HOME/vendor/bin/pdepend /usr/bin/pdepend && \
     \
     git clone https://github.com/rbenv/rbenv.git $RBENV_HOME && \
     git clone https://github.com/rbenv/ruby-build.git $RBENV_HOME/plugins/ruby-build && \
