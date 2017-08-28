@@ -17,7 +17,7 @@ ENV NODENV_HOME "/root/.nodenv"
 ENV COMPOSER_HOME "/root/.composer"
 ENV GOPATH "/go"
 
-ENV PATH "$RBENV_HOME/bin:$RBENV_HOME/shims:$NODENV_HOME/bin:$NODENV_HOME/shims:$COMPOSER_HOME/bin:$PATH"
+ENV PATH "$RBENV_HOME/bin:$RBENV_HOME/shims:$NODENV_HOME/bin:$NODENV_HOME/shims:$COMPOSER_HOME/bin:$GOPATH/bin:$PATH"
 
 RUN \
     groupadd -g 2004 docker && \
