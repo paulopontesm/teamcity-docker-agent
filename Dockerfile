@@ -41,6 +41,7 @@ RUN apt-get update -y && \
     apt-get -y install oracle-java8-unlimited-jce-policy && \
     apt-get -y install oracle-java8-set-default && \
     echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
+    echo "StrictHostKeyChecking no" >> ~/.ssh/ssh_config && \
     git config --global core.quotepath false && \
     git config --global core.packedGitLimit 512m && \
     git config --global core.packedGitWindowSize 512m && \
