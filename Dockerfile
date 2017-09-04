@@ -88,6 +88,9 @@ RUN apt-get update -y && \
     apt-get install golang -y && \
     go get github.com/fzipp/gocyclo && \
     \
+    npm install -g raml2html && \
+    npm install -g raml-cop && \
+    \
     apt-get remove -y autoconf bison build-essential && \
     apt-get autoremove -y && \
     apt-get autoclean all && \

@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    working_directory: /app
+    docker:
+      - image: docker:stable
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build -t codacy/teamcity-agent:$DOCKER_VERSION_PREFIX.$CIRCLE_BUILD_NUM --no-cache .
+      - deploy:
+          name: Push application Docker image
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+              docker tag -f codacy/teamcity-agent:$DOCKER_VERSION_PREFIX.$CIRCLE_BUILD_NUM codacy/teamcity-agent:latest
+              docker push codacy/teamcity-agent:$DOCKER_VERSION_PREFIX.$CIRCLE_BUILD_NUM
+              docker push codacy/teamcity-agent:latest
+            fi
