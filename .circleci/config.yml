@@ -15,8 +15,8 @@ jobs:
           name: Push application Docker image
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-              docker tag -f codacy/teamcity-agent:$DOCKER_VERSION_PREFIX.$CIRCLE_BUILD_NUM codacy/teamcity-agent:latest
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              docker tag codacy/teamcity-agent:$DOCKER_VERSION_PREFIX.$CIRCLE_BUILD_NUM codacy/teamcity-agent:latest
               docker push codacy/teamcity-agent:$DOCKER_VERSION_PREFIX.$CIRCLE_BUILD_NUM
               docker push codacy/teamcity-agent:latest
             fi
