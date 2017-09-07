@@ -10,7 +10,7 @@ ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
 ENV RUBY_VERSION 2.4.1
-ENV NODE_VERSION 8.1.0
+ENV NODE_VERSION 8.4.0
 
 ENV RBENV_HOME "/root/.rbenv"
 ENV NODENV_HOME "/root/.nodenv"
@@ -83,6 +83,7 @@ RUN apt-get update -y && \
     nodenv install -s $NODE_VERSION && \
     nodenv global $NODE_VERSION && \
     echo 'eval "$(nodenv init -)"' >> /root/.bashrc && \
+    npm install -g npm@5 && \
     npm install -g cloc@2.2.0 && \
     \
     apt-get install golang -y && \
