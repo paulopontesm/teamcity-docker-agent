@@ -59,6 +59,7 @@ RUN apt-get update -y && \
     python -m pip install --upgrade metrics===0.2.6 && \
     python -m pip install --upgrade radon===1.4.2 && \
     python -m pip install --upgrade lizard===1.12.9 && \
+    python -m pip install --upgrade formica-cli && \
     \
     apt-get install -y sbt && \
     \
