@@ -1,5 +1,6 @@
 ## TeamCity Agent Image Dockerfile
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ebae29299833441f9f0425d580e522e6)](https://www.codacy.com/app/Codacy/teamcity-docker-agent?utm_source=github.com&utm_medium=referral&utm_content=codacy/teamcity-docker-agent&utm_campaign=badger)
 [![CircleCI](https://circleci.com/gh/codacy/teamcity-docker-agent.svg?style=svg)](https://circleci.com/gh/codacy/teamcity-docker-agent)
 [![MicroBadger](https://images.microbadger.com/badges/image/codacy/teamcity-agent.svg)](https://microbadger.com/images/codacy/teamcity-agent "Get your own image badge on microbadger.com")
 
@@ -28,4 +29,4 @@ apt-get install -y docker-engine=1.10.3-0~wily
 docker build -t teamcity-agent
 ```
 
-See our [detailed instructions] (https://hub.docker.com/r/jetbrains/teamcity-agent/) on how to use the image in the Docker Hub repository .
+See our [detailed instructions](https://hub.docker.com/r/jetbrains/teamcity-agent/) on how to use the image in the Docker Hub repository.
