@@ -29,4 +29,4 @@ apt-get install -y docker-engine=1.10.3-0~wily
 docker build -t teamcity-agent
 ```
 
-See our [detailed instructions] (https://hub.docker.com/r/jetbrains/teamcity-agent/) on how to use the image in the Docker Hub repository .
+See our [detailed instructions](https://hub.docker.com/r/jetbrains/teamcity-agent/) on how to use the image in the Docker Hub repository .
