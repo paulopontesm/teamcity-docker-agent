@@ -93,6 +93,11 @@ RUN apt-get update -y && \
     npm install -g raml2html && \
     npm install -g raml-cop && \
     \
+    curl -L -o coursier https://git.io/vgvpD && chmod +x coursier && \
+    ./coursier bootstrap com.geirsson:scalafmt-cli_2.12:1.4.0 \
+      -r bintray:scalameta/maven \
+      -o /usr/local/bin/scalafmt --standalone --main org.scalafmt.cli.Cli && \
+    \
     apt-get remove -y autoconf bison build-essential && \
     apt-get autoremove -y && \
     apt-get autoclean all && \
