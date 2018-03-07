@@ -98,6 +98,8 @@ RUN apt-get update -y && \
       -r bintray:scalameta/maven \
       -o /usr/local/bin/scalafmt --standalone --main org.scalafmt.cli.Cli && \
     \
+    curl -L -o /usr/local/bin/amm https://git.io/vASZm && \
+    chmod +x /usr/local/bin/amm && \
     apt-get remove -y autoconf bison build-essential && \
     apt-get autoremove -y && \
     apt-get autoclean all && \
