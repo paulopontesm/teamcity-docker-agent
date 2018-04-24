@@ -35,7 +35,7 @@ RUN apt-get update -y && \
     echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
     add-apt-repository -y ppa:webupd8team/java && \
     apt-get update -y && \
-    apt-get install -y git autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev php5.6-xml && \
+    apt-get install -y git jq autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev php5.6-xml && \
     \
     apt-get -y install oracle-java8-installer && \
     apt-get -y install oracle-java8-unlimited-jce-policy && \
